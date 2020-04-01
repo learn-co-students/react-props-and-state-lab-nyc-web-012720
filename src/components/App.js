@@ -27,6 +27,19 @@ class App extends React.Component {
     .then(pets => this.setState({pets}))
   }
 
+  onAdoptPet = (petId,event) => {
+    
+    //this.stae,pets => [pet1, pet2, pet,3....]
+    let apotedPets = this.state.pets.map(pet => {
+      if (pet.id === petId) { let newPet = {...pet}
+      newPet.isAdopted = true 
+      return newPet}
+
+      else{ return pet }
+    })
+    this.setState({pets: apotedPets},() =>{console.log(this.state)})
+  }
+
   render() {
     return (
       <div className="ui container">
@@ -39,7 +52,7 @@ class App extends React.Component {
               <Filters onFindPetsClick={this.onFindPetsClick} onChangeType={this.onChangeType}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser pets={this.state.pets} />
+              <PetBrowser pets={this.state.pets} onAdoptPet={this.onAdoptPet} />
             </div>
           </div>
         </div>
